@@ -5,10 +5,12 @@ import random
 # Define moves and their respective wins/losses
 moves = ['R', 'S', 'P']
 win_conditions = {
-    'R': {'S': 0, 'P': 1},
-    'S': {'P': 0, 'R': 1},
-    'P': {'R': 0, 'S': 1}
+    'R': {'R':0, 'S': 1, 'P': -1},
+    'S': {'S':0, 'P': 1, 'R': -1},
+    'P': {'P':0, 'R': 1, 'S': -1}
 }
+
+# print(win_conditions['R']['P'])
 
 def get_random_move():
     return random.choice(moves)
@@ -16,10 +18,10 @@ def get_random_move():
 def compare_moves(player_move, algo_move):
     if player_move == algo_move:
         return 0  # Tie
-    elif win_conditions[player_move][algo_move]:
-        return 1  # Player win
-    else:
-        return -1  # Algorithm win
+    elif win_conditions[player_move][algo_move] == -1:
+        return -1  # Player win
+    elif win_conditions[player_move][algo_move] == 1:
+        return 1  # Algorithm win
 
 def play_game():
     player_move = input("Choose your move (R/S/P): ")
